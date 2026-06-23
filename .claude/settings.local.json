@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__claude_design__get_project",
+      "mcp__claude_design__list_files",
+      "mcp__claude_design__read_file",
+      "Skill(run)",
+      "Bash(chromium-cli *)",
+      "Bash(npx --yes playwright@latest --version)",
+      "Bash(node /private/tmp/claude-501/-Users-satoujun-Development-bookshelf-app/42c261a1-ea53-408b-8194-27c9ee80e54e/scratchpad/screenshot.mjs)",
+      "Bash(npm list *)",
+      "Bash(npx playwright *)",
+      "Bash(node *)"
+    ]
+  }
+}

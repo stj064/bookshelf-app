@@ -1,0 +1,7 @@
+* { box-sizing: border-box; }
+body { margin: 0; }
+input::placeholder { color: #b7b0a6; }
+input:focus { outline: none; }
+select:focus { outline: none; }
+select { -webkit-appearance: none; appearance: none; }
+@keyframes snackIn { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
