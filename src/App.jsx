@@ -91,7 +91,7 @@ function App() {
 
         <header style={{ marginBottom: '28px' }}>
           <div style={{ fontSize: '11px', letterSpacing: '0.32em', textTransform: 'uppercase', color: ACCENT, fontWeight: 700, marginBottom: '10px' }}>My Library</div>
-          <h1 style={{ fontFamily: "'Shippori Mincho', serif", fontWeight: 600, fontSize: '34px', lineHeight: 1.15, margin: '0 0 6px', color: '#221f1b' }}>本棚</h1>
+          <h1 style={{ fontFamily: "'Shippori Mincho', serif", fontWeight: 600, fontSize: '34px', lineHeight: 1.15, margin: '0 0 6px', color: '#221f1b' }}>私の本棚</h1>
           <p style={{ margin: 0, fontSize: '13.5px', lineHeight: 1.6, color: '#8a847b' }}>読みたい本も、読み終えた本も。静かに並べておく場所。</p>
         </header>
 
