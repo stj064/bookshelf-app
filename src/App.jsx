@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react'
 import ReactMarkdown from 'react-markdown'
 import { format } from 'date-fns'
 import { supabase } from './supabase'
+import { Button, Input } from '@stj064/design-system'
+import '@stj064/design-system/styles.css'
 
 const ACCENT = '#a86b4c'
 
@@ -23,7 +25,6 @@ function App() {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [filter, setFilter] = useState('all')
-  const [addHover, setAddHover] = useState(false)
   const [snackbar, setSnackbar] = useState({ message: '', tone: 'neutral', visible: false, key: 0 })
   const snackbarTimer = useRef(null)
 
@@ -97,27 +98,24 @@ function App() {
         </header>
 
         <section style={{ background: '#ffffff', border: '1px solid #ebe7e0', borderRadius: '4px', padding: '18px', marginBottom: '24px' }}>
-          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'stretch' }}>
-            <input
-              type="text"
-              placeholder="タイトル"
-              value={title}
-              onChange={e => setTitle(e.target.value)}
-              style={{ flex: '2 1 220px', minWidth: '160px', height: '46px', padding: '0 14px', fontFamily: "'Noto Sans JP', sans-serif", fontSize: '14px', color: '#2b2723', background: '#faf9f6', border: '1px solid #e6e1d9', borderRadius: '3px' }}
-            />
-            <input
-              type="text"
-              placeholder="著者"
-              value={author}
-              onChange={e => setAuthor(e.target.value)}
-              style={{ flex: '1 1 140px', minWidth: '120px', height: '46px', padding: '0 14px', fontFamily: "'Noto Sans JP', sans-serif", fontSize: '14px', color: '#2b2723', background: '#faf9f6', border: '1px solid #e6e1d9', borderRadius: '3px' }}
-            />
-            <button
-              onClick={addBook}
-              onMouseEnter={() => setAddHover(true)}
-              onMouseLeave={() => setAddHover(false)}
-              style={{ flexShrink: 0, height: '46px', padding: '0 26px', fontFamily: "'Noto Sans JP', sans-serif", fontSize: '14px', fontWeight: 700, color: '#fff', border: 'none', borderRadius: '3px', cursor: 'pointer', background: ACCENT, filter: addHover ? 'brightness(0.92)' : 'none', transition: 'filter .15s' }}
-            >追加</button>
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'flex-end' }}>
+            <div style={{ flex: '2 1 220px', minWidth: '160px' }}>
+              <Input
+                type="text"
+                placeholder="タイトル"
+                value={title}
+                onChange={e => setTitle(e.target.value)}
+              />
+            </div>
+            <div style={{ flex: '1 1 140px', minWidth: '120px' }}>
+              <Input
+                type="text"
+                placeholder="著者"
+                value={author}
+                onChange={e => setAuthor(e.target.value)}
+              />
+            </div>
+            <Button onClick={addBook}>追加</Button>
           </div>
         </section>
 
@@ -206,7 +204,6 @@ function BookRow({ book, onStatusChange, onDelete }) {
   const [impression, setImpression] = useState('')
   const [aiComment, setAiComment] = useState('')
   const [aiLoading, setAiLoading] = useState(false)
-  const [aiButtonHover, setAiButtonHover] = useState(false)
   const dateStr = book.created_at ? format(new Date(book.created_at), 'yyyy.MM.dd') : ''
 
   const fetchAiComment = async () => {
@@ -280,26 +277,21 @@ function BookRow({ book, onStatusChange, onDelete }) {
 
       {expanded && (
         <div style={{ padding: '4px 4px 20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          <textarea
+          <Input
+            multiline
+            rows={4}
             value={impression}
             onChange={e => setImpression(e.target.value)}
             placeholder="この本の感想を入力してください…"
-            rows={4}
-            style={{ width: '100%', boxSizing: 'border-box', resize: 'vertical', padding: '12px 14px', fontFamily: "'Noto Sans JP', sans-serif", fontSize: '14px', color: '#2b2723', background: '#faf9f6', border: '1px solid #e6e1d9', borderRadius: '3px', lineHeight: 1.7, outline: 'none' }}
           />
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <button
+            <Button
               onClick={fetchAiComment}
-              onMouseEnter={() => setAiButtonHover(true)}
-              onMouseLeave={() => setAiButtonHover(false)}
               disabled={aiLoading || !impression.trim()}
-              style={{ height: '38px', padding: '0 18px', fontFamily: "'Noto Sans JP', sans-serif", fontSize: '13px', fontWeight: 700, color: '#fff', border: 'none', borderRadius: '3px', cursor: aiLoading || !impression.trim() ? 'not-allowed' : 'pointer', background: aiLoading || !impression.trim() ? '#c8bfb5' : ACCENT, filter: aiButtonHover && !aiLoading && impression.trim() ? 'brightness(0.92)' : 'none', transition: 'all .15s', flexShrink: 0 }}
+              loading={aiLoading}
             >
               AIにコメントをもらう
-            </button>
-            {aiLoading && (
-              <span style={{ fontSize: '13px', color: '#8a847b' }}>コメントを生成中...</span>
-            )}
+            </Button>
           </div>
           {aiComment && (
             <div style={{ padding: '14px 16px', background: '#fdf8f3', border: `1px solid ${ACCENT}33`, borderRadius: '3px', fontSize: '14px', lineHeight: 1.8, color: '#3a3530' }}>
